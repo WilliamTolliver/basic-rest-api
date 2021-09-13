@@ -17,37 +17,70 @@ public class Unit {
     String Name;
     String Civilization;
     String Building;
-    int Time;
-    int Food;
-    int Coin;
-    int Wood;
-    int Health;
-    int RangeResist;
-    int MeleeResist;
-    int Speed;
-    int LOS;
-    int Pop;
-    int MeleeDam;
-    int HIMul;
+    double Time;
+    double Food;
+    double Coin;
+    double Wood;
+    double Health;
+    double RangeResist;
+    double MeleeResist;
+    double Speed;
+    double LOS;
+    double Pop;
+    double MeleeDam;
+    double HIMul;
     double LIMul;
     double CavMul;
     double MRate;
-    int RangedDam;
-    int R_HIMul;
+    double RangedDam;
+    double R_HIMul;
     double R_LIMul;
     double R_CavMul;
-    int R_HCavMul;
+    double R_HCavMul;
     double RRate;
-    int RRange;
-    int Bounty;
-    int SiegeDam;
-    int SRange;
+    double RRange;
+    double Bounty;
+    double SiegeDam;
+    double SRange;
     double SRate;
     String Comments;
 
     /*
     TODO: Fix these!
      */
+
+    public Unit(String name, String civilization, String building, double time, double food, double coin, double wood, double health, double rangeResist, double meleeResist, double speed, double LOS, double pop, double meleeDam, double HIMul, double LIMul, double cavMul, double MRate, double rangedDam, double r_HIMul, double r_LIMul, double r_CavMul, double r_HCavMul, double RRate, double RRange, double bounty, double siegeDam, double SRange, double SRate, String comments) {
+        Name = name;
+        Civilization = civilization;
+        Building = building;
+        Time = time;
+        Food = food;
+        Coin = coin;
+        Wood = wood;
+        Health = health;
+        RangeResist = rangeResist;
+        MeleeResist = meleeResist;
+        Speed = speed;
+        this.LOS = LOS;
+        Pop = pop;
+        MeleeDam = meleeDam;
+        this.HIMul = HIMul;
+        this.LIMul = LIMul;
+        CavMul = cavMul;
+        this.MRate = MRate;
+        RangedDam = rangedDam;
+        R_HIMul = r_HIMul;
+        R_LIMul = r_LIMul;
+        R_CavMul = r_CavMul;
+        R_HCavMul = r_HCavMul;
+        this.RRate = RRate;
+        this.RRange = RRange;
+        Bounty = bounty;
+        SiegeDam = siegeDam;
+        this.SRange = SRange;
+        this.SRate = SRate;
+        Comments = comments;
+    }
 
     @Override
     public boolean equals(Object obj) {

@@ -1,5 +1,6 @@
 package com.example.wttech.basicrestapi.ReadExcel;
 
+import com.example.wttech.basicrestapi.model.Unit;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -14,6 +15,8 @@ import java.util.Iterator;
 import java.util.List;
 
 public class ExcelFieldMapper {
+
+    private List<String> values;
 
     public String mappedFields(String fieldsList){
 
@@ -41,15 +44,62 @@ public class ExcelFieldMapper {
         List<String> fieldValues = new ArrayList<>();
         int count = 0;
 
-        Iterator rows = sheet.rowIterator();
-
         // Iterate over the rows. Print their value as a string.
         // TODO: Make this able to read the column headers so we can map values to Custom Object
+        //count = mapHeaders(fieldNames, count, sheet);
+
+        //mapHeaders(fieldNames, 0, sheet);
+        //mapFieldsToList(fieldValues, 1, sheet);
+
+        System.out.println(mapFieldsToUnit(sheet, 3));
+
+    }
+
+
+    /*
+    Private
+     */
+
+    private static void mapFieldsToList(List<String> fieldValues, int count, XSSFSheet sheet) {
+
+        Iterator rows = sheet.rowIterator();
+        XSSFRow row;
+        XSSFCell cell;
+        if(count == 1) {
+            rows.next();
+            while (rows.hasNext() && count == 1)
+            {
+                row=(XSSFRow) rows.next();
+                Iterator cells = row.cellIterator();
+                while (cells.hasNext())
+                {
+                    cell=(XSSFCell) cells.next();
+
+                    if (cell.getCellType() == XSSFCell.CELL_TYPE_STRING)
+                    {
+                        fieldValues.add(cell.getStringCellValue());
+                    }
+
+                }
+                count++;
+            }
+        }
+
+
+        //print values
+        fieldValues.forEach(s -> System.out.println(s.toString()));
+    }
+
+    private static int mapHeaders(List<String> fieldNames, int count, XSSFSheet sheet) {
+
+        Iterator rows = sheet.rowIterator();
+        XSSFRow row;
+        XSSFCell cell;
         while (rows.hasNext() && count== 0)
         {
             row=(XSSFRow) rows.next();
             Iterator cells = row.cellIterator();
-            while (cells.hasNext())
+            while (cells.hasNext() && count == 0)
             {
                 cell=(XSSFCell) cells.next();
 
@@ -62,29 +112,93 @@ public class ExcelFieldMapper {
             count++;
         }
 
-        while (rows.hasNext() && count== 1)
+        //print values
+        fieldNames.forEach(s -> System.out.println(s.toString()));
+
+        return count;
+    }
+
+    private static List<Unit> mapFieldsToUnit(XSSFSheet sheet, int count) {
+
+        Unit unit;
+        List<Unit> unitsList = new ArrayList<>();
+        List<String> values = new ArrayList<>();
+        Iterator rows = sheet.rowIterator();
+        XSSFRow row;
+        XSSFCell cell;
+        rows.next();
+        rows.next();
+        rows.next();
+        while (rows.hasNext() && count >= 3)
         {
             row=(XSSFRow) rows.next();
             Iterator cells = row.cellIterator();
-            while (cells.hasNext())
+            while (cells.hasNext() && count >= 3)
             {
                 cell=(XSSFCell) cells.next();
 
                 if (cell.getCellType() == XSSFCell.CELL_TYPE_STRING)
                 {
-                    fieldValues.add(cell.getStringCellValue());
+                    values.add(cell.getStringCellValue());
                 }
-
+                if (cell.getCellType() == XSSFCell.CELL_TYPE_NUMERIC)
+                {
+                    values.add(String.valueOf(cell.getNumericCellValue()));
+                }
             }
             count++;
+
+            unit = new Unit(
+                    values.get(0),
+                    values.get(1),
+                    values.get(2),
+                    Double.parseDouble(values.get(3)),
+                    Double.parseDouble(values.get(4)),
+                    Double.parseDouble(values.get(5)),
+                    Double.parseDouble(values.get(6)),
+                    Double.parseDouble(values.get(7)),
+                    Double.parseDouble(values.get(8)),
+                    Double.parseDouble(values.get(9)),
+                    Double.parseDouble(values.get(10)),
+                    Double.parseDouble(values.get(11)),
+                    Double.parseDouble(values.get(12)),
+                    Double.parseDouble(values.get(13)),
+                    Double.parseDouble(values.get(14)),
+                    Double.parseDouble(values.get(15)),
+                    Double.parseDouble(values.get(16)),
+                    Double.parseDouble(values.get(17)),
+                    Double.parseDouble(values.get(18)),
+                    Double.parseDouble(values.get(19)),
+                    Double.parseDouble(values.get(20)),
+                    Double.parseDouble(values.get(21)),
+                    Double.parseDouble(values.get(22)),
+                    Double.parseDouble( values.get(23)),
+                    Double.parseDouble(values.get(24)),
+                    Double.parseDouble(values.get(25)),
+                    Double.parseDouble(values.get(26)),
+                    Double.parseDouble(values.get(27)),
+                    Double.parseDouble(values.get(28)),
+                    values.get(29));
+
+            unitsList.add(unit);
         }
 
+
+        return unitsList;
+    }
+
+    private static void printFields(List<String> fieldNames, List<String> fieldValuess) {
         for(int i = 0 ; i < fieldNames.size(); i++){
             System.out.print(fieldNames.get(i) + " ");
-            System.out.println(fieldValues.get(i) + ";");
+            System.out.println(fieldValuess.get(i) + ";");
         }
-
     }
+
+
+
+    /*
+    Public
+     */
 
     public static void main(String[] args) {
         try {
