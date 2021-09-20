@@ -4,12 +4,14 @@ import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.springframework.stereotype.Component;
 
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Iterator;
 
+@Component
 public class ReadExcelSheet {
 
     public static void readXLSXFile() throws IOException
@@ -54,7 +56,6 @@ public class ReadExcelSheet {
                     //U Can Handel Boolean, Formula, Errors
                 }
             }
-            System.out.println();
         }
 
     }
@@ -63,7 +64,7 @@ public class ReadExcelSheet {
         try {
             ReadExcelSheet.readXLSXFile();
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Not saved");;
         }
 
     }
